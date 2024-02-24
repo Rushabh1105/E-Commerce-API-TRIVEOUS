@@ -7,6 +7,7 @@ const db  = require('./src/models/index.js');
 const authRouter = require('./src/Routes/auth.routes.js');
 const UserError = require('./src/Error/user.error.js');
 const categoryRouter = require('./src/Routes/category.routes.js');
+const productRouter = require('./src/Routes/product.routes.js');
 
 
 const app = express();
@@ -15,6 +16,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}))
 app.use('/auth', authRouter);
 app.use('/api/category', categoryRouter);
+app.use('/api/product', productRouter);
 
 app.use((err, req, res, next) => {
     if(err instanceof UserError){

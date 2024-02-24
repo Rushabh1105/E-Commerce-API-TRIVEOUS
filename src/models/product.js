@@ -2,7 +2,6 @@
 const {
   Model
 } = require('sequelize');
-// const category = require('./category');
 module.exports = (sequelize, DataTypes) => {
   class Product extends Model {
     /**
@@ -14,8 +13,12 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       this.belongsTo(models.Category, {
         foreignKey: 'categoryId',
-        onDelete: 'CASCADE',
-      })
+        onDelete: 'CASCADE'
+      });
+      this.belongsTo(models.User, {
+        foreignKey: 'sellerId',
+        onDelete: 'CASCADE'
+      });
     }
   }
   Product.init({
@@ -26,6 +29,9 @@ module.exports = (sequelize, DataTypes) => {
     price: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      validate: {
+        min: 0,
+      }
     },
     categoryId: {
       type: DataTypes.INTEGER,
@@ -33,11 +39,16 @@ module.exports = (sequelize, DataTypes) => {
     },
     quantity: {
       type: DataTypes.INTEGER,
+      allowNull: false,
       validate: {
-        min: 1
+        min: 1,
       }
     },
-    rating: DataTypes.FLOAT
+    rating: DataTypes.FLOAT,
+    sellerId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    }
   }, {
     sequelize,
     modelName: 'Product',

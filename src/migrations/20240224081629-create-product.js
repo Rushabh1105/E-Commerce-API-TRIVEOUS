@@ -10,30 +10,22 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       name: {
-        type: Sequelize.STRING,
-        allowNull: false,
+        type: Sequelize.STRING
       },
       price: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
+        type: Sequelize.INTEGER
       },
       categoryId: {
-        type: Sequelize.INTEGER,
-        allowNull: false
+        type: Sequelize.INTEGER
       },
       quantity: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        validate: {
-          min: 1,
-        }
+        type: Sequelize.INTEGER
       },
       rating: {
         type: Sequelize.FLOAT
       },
       sellerId: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,

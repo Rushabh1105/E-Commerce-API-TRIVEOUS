@@ -1,0 +1,356 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "version": "1.0.0",
+        "description": "API for interacting with ECOM-Site",
+        "title": "Ecommerce-App"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:3000"
+        }
+    ],
+    "components": {
+        "securitySchemes": {
+            "JWT": {
+                "in": "header",
+                "name": "Authorization",
+                "type": "apiKey"
+            }
+        }
+    },
+    "paths": {
+        "/api/auth/signin": {
+            "post": {
+                "tags": ["Users"],
+                "summary": "Login to the user account",
+                "description": "login api for the authenticated users",
+                "requestBody":{
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "Incorrect details"
+                    }
+                }
+            }
+        },
+        "api/user/signup": {
+            "post": {
+                "tags": ["Users"],
+                "summary": "Register new user to app",
+                "description": "signup api for the user registration",
+                "requestBody":{
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "Incorrect details"
+                    }
+                }
+            }
+        },
+        "/api/category/new": {
+            "post": {
+                "tags": ["Categories"],
+                "summary": "Add new Categories",
+                "description": "Admin can add the Categories" ,
+                "security": [{"JWT": {}}],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Unauthorised"
+                    }
+                }
+            }
+        },
+        "/api/category/": {
+            "get": {
+                "tags": ["Categories"],
+                "summary": "Get all categories",
+                "description": "User will get list of all categories",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Unauthorised"
+                    }
+                }
+            }
+        },
+        "/api/category/:id/update": {
+            "put": {
+                "tags": ["Categories"],
+                "summary": "Admin can update a category",
+                "description": "Only admin can do this task",
+                "security": [{"JWT": {}}],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Unauthorised"
+                    }
+                }
+            }
+        },
+        "/api/poscategory/:id/delete": {
+            "delete": {
+                "tags": ["Categories"],
+                "summary": "Admin can delete a category",
+                "description": "Only admin can do this task",
+                "security": [{"JWT": {}}],
+                "requestBody":{
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Unauthorised"
+                    }
+                }
+            }
+        },
+        "/api/product/new": {
+            "post": {
+                "tags": ["Product"],
+                "summary": "Seller can add new product to site",
+                "description": "add new product depending on category",
+                "security": [{"JWT": {}}],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Unauthorised"
+                    }
+                }
+            }
+        },
+        "/api/product/:id": {
+            "get": {
+                "tags": ["Product"],
+                "summary": "Customer can get a product by its id",
+                "description": "user will get details of product",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Unauthorised"
+                    }
+                }
+            }
+        },
+        "/api/product/?categoryName=": {
+            "get": {
+                "tags": ["Product"],
+                "summary": "User will able to filter product based on category",
+                "description": "User will able to filter out product",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Unauthorised"
+                    }
+                }
+            }
+        },
+        "/api/product/{id}/update": {
+            "put": {
+                "tags": ["Product"],
+                "summary": "Seller will able to update a product",
+                "description": "Only seller who added product can update it",
+                "security": [{"JWT": {}}],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Unauthorised"
+                    }
+                }
+            }
+        },
+        "/api/product/{id}/delete": {
+            "delete": {
+                "tags": ["Product"],
+                "summary": "Seller will able to delete a product",
+                "description": "Only seller who added product can delete it",
+                "security": [{"JWT": {}}],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Unauthorised"
+                    }
+                }
+            }
+        },
+        "/api/cart/:id/add": {
+            "post": {
+                "tags": ["Cart"],
+                "summary": "add product to cart",
+                "description": "User will able to add the product to cart",
+                "security": [{"JWT": {}}],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Unauthorised"
+                    }
+                }
+            }
+        },
+        "/api/cart/": {
+            "get": {
+                "tags": ["Cart"],
+                "summary": "User can get all products in his cart",
+                "description": "User will able to fetch cart items",
+                "security": [{"JWT": {}}],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Unauthorised"
+                    }
+                }
+            }
+        },
+        "/api/cart/:id/update": {
+            "put": {
+                "tags": ["Cart"],
+                "summary": "user can update his cart",
+                "description": "User will able to update cart items",
+                "security": [{"JWT": {}}],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Unauthorised"
+                    }
+                }
+            }
+        },
+        "/api/cart/:id/delete": {
+            "delete": {
+                "tags": ["Cart"],
+                "summary": "user can delete an item in his cart",
+                "description": "User will able to delete cart items",
+                "security": [{"JWT": {}}],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Unauthorised"
+                    }
+                }
+            }
+        },
+        "/api/order/:id/place": {
+            "post": {
+                "tags": ["Order"],
+                "summary": "place order on product",
+                "description": "User will able to place the order",
+                "security": [{"JWT": {}}],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Unauthorised"
+                    }
+                }
+            }
+        },
+        "/api/order/:id": {
+            "get": {
+                "tags": ["Order"],
+                "summary": "User can get specific order details",
+                "description": "User will able to fetch order details",
+                "security": [{"JWT": {}}],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Unauthorised"
+                    }
+                }
+            }
+        },
+        "/api/order/": {
+            "get": {
+                "tags": ["Order"],
+                "summary": "User can get all the orders",
+                "description": "User will able to fetch order details",
+                "security": [{"JWT": {}}],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Unauthorised"
+                    }
+                }
+            }
+        }
+    }
+}

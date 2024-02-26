@@ -26,9 +26,10 @@ class ProductRepository{
 
     async getProductById(id){
         try {
-            return await Product.findOne({where: {id: id}});
+            return await Product.findByPk(id);
         } catch (error) {
-            
+            console.log(error)
+            throw { error }
         }
     }
 

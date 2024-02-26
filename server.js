@@ -8,6 +8,7 @@ const authRouter = require('./src/Routes/auth.routes.js');
 const UserError = require('./src/Error/user.error.js');
 const categoryRouter = require('./src/Routes/category.routes.js');
 const productRouter = require('./src/Routes/product.routes.js');
+const cartRouter = require('./src/Routes/cart.routes.js');
 
 
 const app = express();
@@ -17,6 +18,7 @@ app.use(bodyParser.urlencoded({extended: true}))
 app.use('/auth', authRouter);
 app.use('/api/category', categoryRouter);
 app.use('/api/product', productRouter);
+app.use('/api/cart', cartRouter);
 
 app.use((err, req, res, next) => {
     if(err instanceof UserError){

@@ -9,6 +9,7 @@ const UserError = require('./src/Error/user.error.js');
 const categoryRouter = require('./src/Routes/category.routes.js');
 const productRouter = require('./src/Routes/product.routes.js');
 const cartRouter = require('./src/Routes/cart.routes.js');
+const orderRouter = require('./src/Routes/orderRoutes.js');
 
 
 const app = express();
@@ -19,6 +20,7 @@ app.use('/auth', authRouter);
 app.use('/api/category', categoryRouter);
 app.use('/api/product', productRouter);
 app.use('/api/cart', cartRouter);
+app.use('/api/order', orderRouter);
 
 app.use((err, req, res, next) => {
     if(err instanceof UserError){
@@ -29,12 +31,13 @@ app.use((err, req, res, next) => {
             err: err,
         })
     }
+    console.log(err.error)
 
     return res.status(500).json({
         success: false,
         data: null,
         message: 'Internal Server error',
-        err: err,
+        err: err.error,
     })
 })
 
